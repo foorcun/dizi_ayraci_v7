@@ -1,0 +1,29 @@
+{
+  "files.exclude": {
+    ".dart_tool": true,
+    ".idea": true,
+    ".vscode": true,
+    "android": true,
+    "ios": true,
+    "windows": true,
+    ".gitignore": true,
+    ".metadata": true,
+    ".packages": true,
+    "analysis_options.yaml": true,
+    "dizi_ayraci_v7.iml": true,
+    "pubspec.lock": true,
+    "README.md": true,
+    "web": true,
+    "dizi\\.dart_tool": true,
+    "dizi\\.idea": true,
+    "dizi\\.gitignore": true,
+    "dizi\\.metadata": true,
+    "dizi\\.packages": true,
+    "dizi\\analysis_options.yaml": true,
+    "dizi\\CHANGELOG.md": true,
+    "dizi\\dizi.iml": true,
+    "dizi\\LICENSE": true,
+    "dizi\\README.md": true,
+    "dizi\\pubspec.lock": true
+  }
+}
