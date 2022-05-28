@@ -4,6 +4,8 @@
 //   "imgUrl":"assets/images/cat_cafe.png"
 // }
 
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 
 import 'package:dizi_ayraci_v7/features/sezon/domain/entites/sezon.dart';
@@ -14,10 +16,14 @@ import 'package:dizi_ayraci_v7/features/sezon/domain/entites/sezon.dart';
 class Dizi extends Equatable {
   String? diziName;
   List<Sezon>? sezonlar;
+  Dizi({
+    this.diziName,
+    this.sezonlar,
+  });
 
   @override
   // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object> get props => [diziName!, sezonlar!];
 
   @override
   String toString() => 'Dizi(diziName: $diziName, sezonlar: $sezonlar)';

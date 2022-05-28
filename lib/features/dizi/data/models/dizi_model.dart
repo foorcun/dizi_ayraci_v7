@@ -1,0 +1,64 @@
+import 'package:dizi_ayraci_v7/features/dizi/domain/entities/dizi.dart';
+import 'package:dizi_ayraci_v7/features/sezon/domain/entites/sezon.dart';
+
+import 'package:json_annotation/json_annotation.dart';
+
+// part 'dizi_model.g.dart';
+
+@JsonSerializable(explicitToJson: true)
+class DiziModel extends Dizi {
+  DiziModel({String? diziName, List<Sezon>? sezonlar})
+      : super(diziName: diziName, sezonlar: sezonlar);
+
+  // DiziModel({String? diziName}) : super(diziName: diziName);
+
+  // factory DiziModel.fromJson(Map<String, dynamic> json) =>
+  //     _$DiziModelFromJson(json);
+
+  // Map<String, dynamic>? toJson() => _$DiziModelToJson(this);
+
+  // factory DiziModel.fromJson({required Map<String, dynamic> json}) {
+  //   return DiziModel(
+  //     diziName: json['diziName'],
+  //     // sezonlar: (json['sezonlar'] as num).toInt(),
+  //   );
+  // }
+
+  // Map<String, dynamic> toJson() {
+  //   return {
+  //     'diziName': diziName,
+  //     //  'number': number,
+  //   };
+  // }
+
+  DiziModel copyWith({
+    String? diziName,
+    List<Sezon>? sezonlar,
+  }) {
+    return DiziModel(
+      diziName: diziName ?? this.diziName,
+      sezonlar: sezonlar ?? this.sezonlar,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'diziName': diziName,
+      'sezonlar': sezonlar?.map((x) => x?.toMap())?.toList(),
+    };
+  }
+
+  factory DiziModel.fromMap(Map<String, dynamic> map) {
+    return DiziModel(
+      diziName: map['diziName'],
+      sezonlar: map['sezonlar'] != null
+          ? List<Sezon>.from(map['sezonlar']?.map((x) => Sezon.fromMap(x)))
+          : null,
+    );
+  }
+
+  // String toJson() => json.encode(toMap());
+
+  // factory DiziModel.fromJson(String source) =>
+  //     DiziModel.fromMap(json.decode(source));
+}

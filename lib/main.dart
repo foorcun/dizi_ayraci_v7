@@ -1,4 +1,7 @@
+import 'package:dizi_ayraci_v7/features/dizi/presentation/plain/plain_diziler.dart';
 import 'package:flutter/material.dart';
+
+import 'injection_container.dart' as di;
 
 //start the server
 //start C:\API
@@ -6,8 +9,10 @@ import 'package:flutter/material.dart';
 
 // flutter run -d chrome --web-hostname localhost --web-port 5000 --no-sound-null-safety
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  await di.init();
+  runApp(const PlainDiziler());
+  // runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
