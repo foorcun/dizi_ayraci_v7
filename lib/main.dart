@@ -5,7 +5,7 @@ import 'injection_container.dart' as di;
 
 //start the server
 //start C:\API
-//json-server --watch dizi_ayraci.json
+//json-server --watch dizi_ayraci_inner.json
 
 // flutter run -d chrome --web-hostname localhost --web-port 5000 --no-sound-null-safety
 

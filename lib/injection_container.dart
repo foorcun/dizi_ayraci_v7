@@ -6,6 +6,8 @@ import 'package:dizi_ayraci_v7/features/dizi/data/datasources/static/static_fake
 import 'package:dizi_ayraci_v7/features/dizi/data/repositories/dizi_repository_impl.dart';
 import 'package:dizi_ayraci_v7/features/dizi/domain/repositories/dizi_repository.dart';
 import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/add_dizi_usecase.dart';
+import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/delete_dizi_by_id_usecase.dart';
+import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/dizi_repository_bringer.dart';
 import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/get_all_usecase_dizi_future.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
@@ -42,6 +44,7 @@ Future<void> init() async {
   // sl.registerLazySingleton(() => AddDiziToUser(sl()));
   sl.registerLazySingleton(() => GetAllUseCaseDiziFuture(sl()));
   sl.registerLazySingleton(() => AddDiziUsecase(diziRepository: sl()));
+  sl.registerLazySingleton(() => DeleteDiziByIdUsecase(diziRepository: sl()));
 
   //! Repository
   // sl.registerLazySingleton<NumberTriviaRepository>(

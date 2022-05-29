@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/delete_dizi_by_id_usecase.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:dizi_ayraci_v7/core/utils/json_helper.dart';
@@ -45,11 +46,13 @@ class DiziRepositoryImpl implements DiziRepository {
   Future<void> addDizi(AddDiziParams params) async {
     var uri = Uri.parse("http://localhost:3000/diziler");
 
-    Map<String, dynamic> bodyyy = {"LstUserOptions": "asdf"};
+    // Map<String, dynamic> bodyyy = {"LstUserOptions": "asdf"};
 
-    Map<String, dynamic> alt = {'team': 'Team A'};
+    // Map<String, dynamic> alt = {'team': 'Team A'};
 
-    bodyyy["homeTeam"] = null;
+    // bodyyy["homeTeam"] = null;
+
+    Map<String, dynamic> bodyyy = params.eklenecekDizi.toMap();
 
     try {
       print("bodyyy - " + bodyyy.toString());
@@ -64,48 +67,10 @@ class DiziRepositoryImpl implements DiziRepository {
       print(e);
     }
   }
-}
-
-class Ddd {
-  String? ddd;
-  Ddd({
-    this.ddd,
-  });
-
-  Ddd copyWith({
-    String? ddd,
-  }) {
-    return Ddd(
-      ddd: ddd ?? this.ddd,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'ddd': ddd,
-    };
-  }
-
-  factory Ddd.fromMap(Map<String, dynamic> map) {
-    return Ddd(
-      ddd: map['ddd'],
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory Ddd.fromJson(String source) => Ddd.fromMap(json.decode(source));
 
   @override
-  String toString() => 'Ddd(ddd: $ddd)';
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is Ddd && other.ddd == ddd;
+  Future<void> deleteDiziById(DeleteDiziByIdParams params) async {
+    // TODO: implement deleteDiziById
+    staticDiziRemoteDataSource?.deleteDiziById(params);
   }
-
-  @override
-  int get hashCode => ddd.hashCode;
 }
