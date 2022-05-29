@@ -42,10 +42,42 @@ class DiziModel extends Dizi {
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'diziName': diziName,
-      'sezonlar': sezonlar?.map((x) => x?.toMap())?.toList(),
+    Map<String, Object> diziDataModel = {};
+    // List<Map> sezonDataModel = {};
+    // Sezon sez = Sezon(sezonName: "sezon sez");
+    // sezonDataModel.add(sez.toMap());
+    // print("aaaa");
+    // print(diziDataModel);
+    // print(sezonDataModel);
+
+    // diziDataModel["diziName"] = diziName;
+    diziDataModel["diziName"] = DiziModel(diziName: "dizdizdiz");
+    // print(diziDataModel);
+
+    // sezonDataModel.addAll(Sezon(sezonName: "sezon1").toMap());
+
+    // "diziName": diziName,
+    // "sezonlar": sezonlar?.map((x) => x?.toMap())?.toList(),r
+    // "sezonlar": [],
+    //! diziDataModel["sezonlar"] = sezonDataModel;
+
+    // var sss = sezonlar.map((x) => x.toMap()).toList();
+
+    // diziDataModel["sezonlar"].add(Sezon(sezonName: "modelden"));
+    // print(diziDataModel);
+
+    var mapp = {
+      "name": "namimiz",
+      "age": 23,
+      "adre": [
+        {"country": "china", "city": "shanghai"}
+      ]
     };
+    // mapp["adre"].add
+
+    // print(mapp);
+
+    return diziDataModel;
   }
 
   factory DiziModel.fromMap(Map<String, dynamic> map) {
