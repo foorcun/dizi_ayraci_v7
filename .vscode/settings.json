@@ -24,6 +24,9 @@
     "dizi\\dizi.iml": true,
     "dizi\\LICENSE": true,
     "dizi\\README.md": true,
-    "dizi\\pubspec.lock": true
+    "dizi\\pubspec.lock": true,
+    ".flutter-plugins": true,
+    ".flutter-plugins-dependencies": true,
+    "build": true
   }
 }

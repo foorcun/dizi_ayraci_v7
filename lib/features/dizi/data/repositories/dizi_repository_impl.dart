@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/delete_dizi_by_id_usecase.dart';
+import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/dizi_update_patch_usecase.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:dizi_ayraci_v7/core/utils/json_helper.dart';
@@ -44,7 +45,7 @@ class DiziRepositoryImpl implements DiziRepository {
 
   @override
   Future<void> addDizi(AddDiziParams params) async {
-    var uri = Uri.parse("http://localhost:3000/diziler");
+    var uri = Uri.parse("http://localhost:3000/diziler/");
 
     // Map<String, dynamic> bodyyy = {"LstUserOptions": "asdf"};
 
@@ -72,5 +73,11 @@ class DiziRepositoryImpl implements DiziRepository {
   Future<void> deleteDiziById(DeleteDiziByIdParams params) async {
     // TODO: implement deleteDiziById
     staticDiziRemoteDataSource?.deleteDiziById(params);
+  }
+
+  @override
+  Future<void> diziUpdatePatch(UpdateDiziPatchParams params) async {
+    // TODO: implement diziUpdatePatch
+    staticDiziRemoteDataSource?.diziUpdatePatch(params);
   }
 }

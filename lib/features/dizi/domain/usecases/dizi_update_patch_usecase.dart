@@ -1,25 +1,27 @@
 import 'package:dizi_ayraci_v7/core/usecases/delete_by_id_usecase.dart';
 import 'package:dizi_ayraci_v7/core/usecases/params/params.dart';
+import 'package:dizi_ayraci_v7/core/usecases/update_patch_usecase.dart';
+import 'package:dizi_ayraci_v7/features/dizi/data/models/dizi_model.dart';
 import 'package:dizi_ayraci_v7/features/dizi/domain/entities/dizi.dart';
 import 'package:dizi_ayraci_v7/features/dizi/domain/repositories/dizi_repository.dart';
 import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/DiziRepository_bringer/dizi_repository_bringer.dart';
 
-class DeleteDiziByIdUsecase
-    implements DeleteByIdUsecase<Dizi, DeleteDiziByIdParams> {
+class DiziUpdatePatchUsecase
+    implements UpdatePatchUsecase<Dizi, UpdateDiziPatchParams> {
   DiziRepository diziRepository;
 
-  DeleteDiziByIdUsecase({required this.diziRepository});
+  DiziUpdatePatchUsecase({required this.diziRepository});
   @override
-  Future<void> call(DeleteDiziByIdParams params) async {
+  Future<void> call(UpdateDiziPatchParams params) async {
     // TODO: implement call
-    return await diziRepository.deleteDiziById(params);
+    return await diziRepository.diziUpdatePatch(params);
   }
 }
 
-class DeleteDiziByIdParams implements Params {
-  int id;
-  DeleteDiziByIdParams({
-    required this.id,
+class UpdateDiziPatchParams implements Params {
+  DiziModel yeniDizi;
+  UpdateDiziPatchParams({
+    required this.yeniDizi,
   });
 
   @override

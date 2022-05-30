@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dizi_ayraci_v7/core/usecases/update_patch_usecase.dart';
 import 'package:dizi_ayraci_v7/features/dizi/data/datasources/dynamic/dizi_fake_remote_data_source.dart';
 import 'package:dizi_ayraci_v7/features/dizi/data/datasources/dynamic/dynamic_dizi_remote_data_source.dart';
 import 'package:dizi_ayraci_v7/features/dizi/data/datasources/static/static_dizi_remote_data_source.dart';
@@ -7,7 +8,8 @@ import 'package:dizi_ayraci_v7/features/dizi/data/repositories/dizi_repository_i
 import 'package:dizi_ayraci_v7/features/dizi/domain/repositories/dizi_repository.dart';
 import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/add_dizi_usecase.dart';
 import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/delete_dizi_by_id_usecase.dart';
-import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/dizi_repository_bringer.dart';
+import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/DiziRepository_bringer/dizi_repository_bringer.dart';
+import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/dizi_update_patch_usecase.dart';
 import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/get_all_usecase_dizi_future.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
@@ -45,6 +47,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetAllUseCaseDiziFuture(sl()));
   sl.registerLazySingleton(() => AddDiziUsecase(diziRepository: sl()));
   sl.registerLazySingleton(() => DeleteDiziByIdUsecase(diziRepository: sl()));
+  sl.registerLazySingleton(() => DiziUpdatePatchUsecase(diziRepository: sl()));
 
   //! Repository
   // sl.registerLazySingleton<NumberTriviaRepository>(

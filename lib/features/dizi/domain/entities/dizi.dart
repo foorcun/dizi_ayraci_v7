@@ -17,12 +17,15 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'dizi.g.dart'; // example class adi. Hepsi kucuk harf.
 // part 'sezon_model.g.dart';
+// flutter pub run build_runner build
 
 @JsonSerializable(explicitToJson: true)
 class Dizi extends Equatable {
+  int? id;
   String? diziName;
   List<Sezon>? sezonlar = [Sezon(sezonName: "dizi class ici")];
   Dizi({
+    this.id,
     this.diziName,
     this.sezonlar,
   });

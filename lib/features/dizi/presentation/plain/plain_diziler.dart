@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:dizi_ayraci_v7/injection_container.dart' as di;
 
 import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/add_dizi_usecase.dart';
+import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/dizi_update_patch_usecase.dart';
 
 class PlainDiziler extends StatelessWidget {
   const PlainDiziler({Key? key}) : super(key: key);
@@ -16,20 +17,20 @@ class PlainDiziler extends StatelessWidget {
     return FutureBuilder<Object>(
         future: di.sl<GetAllUseCaseDiziFuture>().call(),
         builder: (context, snapshot) {
-          //diziEklemece();
+          diziEklemece();
+
+          diziUpdatePatch();
 
           //deleteMethod();
-
-          if (snapshot.hasData) {
-            print(snapshot);
-          }
+          //print(snapshot);
+          if (snapshot.hasData) {}
           return Container();
         });
   }
 
   void deleteMethod() {
     try {
-      di.sl<DeleteDiziByIdUsecase>().call(DeleteDiziByIdParams(id: 46));
+      di.sl<DeleteDiziByIdUsecase>().call(DeleteDiziByIdParams(id: 5));
     } catch (e) {
       print(e);
     }
@@ -38,9 +39,20 @@ class PlainDiziler extends StatelessWidget {
   void diziEklemece() {
     List<Sezon> sezonlar = [];
     sezonlar.add(Sezon(sezonName: "deneme Sezon"));
-    var dizim = DiziModel(diziName: "plain ekleme deneme");
+    var dizim = DiziModel(diziName: "eijfoiwjfo");
     dizim.sezonlar = sezonlar;
 
     di.sl<AddDiziUsecase>().call(AddDiziParams(eklenecekDizi: dizim));
+  }
+
+  void diziUpdatePatch() {
+    List<Sezon> sezonlar = [];
+    sezonlar.add(Sezon(sezonName: "deneme Sezon"));
+    var dizim = DiziModel(id: 4, diziName: "yepisyenis");
+    dizim.sezonlar = sezonlar;
+
+    di
+        .sl<DiziUpdatePatchUsecase>()
+        .call(UpdateDiziPatchParams(yeniDizi: dizim));
   }
 }

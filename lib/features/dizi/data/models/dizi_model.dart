@@ -7,8 +7,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 @JsonSerializable(explicitToJson: true)
 class DiziModel extends Dizi {
-  DiziModel({String? diziName, List<Sezon>? sezonlar})
-      : super(diziName: diziName, sezonlar: sezonlar);
+  DiziModel({int? id, String? diziName, List<Sezon>? sezonlar})
+      : super(id: id, diziName: diziName, sezonlar: sezonlar);
 
   // DiziModel({String? diziName}) : super(diziName: diziName);
 
@@ -43,6 +43,7 @@ class DiziModel extends Dizi {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'diziName': diziName,
       'sezonlar': sezonlar?.map((x) => x.toMap()).toList(),
     };
