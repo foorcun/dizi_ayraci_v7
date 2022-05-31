@@ -46,6 +46,9 @@ dependencies:
   dartz: 0.10.1
   # Service locator
   get_it: 7.2.0
+  # GetX
+  get: ^4.6.1
+
 
 dev_dependencies:
   flutter_test:

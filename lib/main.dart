@@ -1,4 +1,6 @@
 import 'package:dizi_ayraci_v7/features/dizi/presentation/plain/plain_diziler.dart';
+import 'package:dizi_ayraci_v7/features/dizi/presentation/state_management/all_dizi_bindings.dart';
+import 'package:dizi_ayraci_v7/features/main_presentation/dizi_list_page.dart';
 import 'package:flutter/material.dart';
 
 import 'injection_container.dart' as di;
@@ -11,8 +13,10 @@ import 'injection_container.dart' as di;
 
 void main() async {
   await di.init();
-  runApp(const PlainDiziler());
-  // runApp(const MyApp());
+  AllDiziBindings().dependencies();
+  // runApp(const PlainDiziler());
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -23,10 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const DiziListPage(),
     );
   }
 }
