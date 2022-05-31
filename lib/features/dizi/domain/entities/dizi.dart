@@ -13,13 +13,11 @@ import 'package:dizi_ayraci_v7/features/sezon/domain/entites/sezon.dart';
 //  # Value equality
 // equatable: 2.0.3
 
-import 'package:json_annotation/json_annotation.dart';
-
-part 'dizi.g.dart'; // example class adi. Hepsi kucuk harf.
+// part 'dizi.g.dart'; // example class adi. Hepsi kucuk harf.
 // part 'sezon_model.g.dart';
 // flutter pub run build_runner build
 
-@JsonSerializable(explicitToJson: true)
+// @JsonSerializable(explicitToJson: true)
 class Dizi extends Equatable {
   int? id;
   String? diziName;
@@ -30,18 +28,18 @@ class Dizi extends Equatable {
     this.sezonlar,
   });
 
-  // addSezon(Sezon sezon) {
-  //   this.sezonlar.add(sezon);
-  // }
+  // // addSezon(Sezon sezon) {
+  // //   this.sezonlar.add(sezon);
+  // // }
 
-  factory Dizi.fromJson(Map<String, dynamic> json) => _$DiziFromJson(json);
+  // factory Dizi.fromJson(Map<String, dynamic> json) => _$DiziFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DiziToJson(this);
+  // Map<String, dynamic> toJson() => _$DiziToJson(this);
 
   @override
   // TODO: implement props
   List<Object> get props => [diziName!, sezonlar!];
 
-  @override
-  String toString() => 'Dizi(diziName: $diziName, sezonlar: $sezonlar)';
+  // @override
+  // String toString() => 'Dizi(diziName: $diziName, sezonlar: $sezonlar)';
 }

@@ -1,11 +1,11 @@
 import 'package:dizi_ayraci_v7/features/dizi/domain/entities/dizi.dart';
 import 'package:dizi_ayraci_v7/features/sezon/domain/entites/sezon.dart';
 
-import 'package:json_annotation/json_annotation.dart';
+// import 'package:json_annotation/json_annotation.dart';
 
 // part 'dizi_model.g.dart';
 
-@JsonSerializable(explicitToJson: true)
+// @JsonSerializable(explicitToJson: true)
 class DiziModel extends Dizi {
   DiziModel({int? id, String? diziName, List<Sezon>? sezonlar})
       : super(id: id, diziName: diziName, sezonlar: sezonlar);

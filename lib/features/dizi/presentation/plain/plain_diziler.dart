@@ -48,7 +48,7 @@ class PlainDiziler extends StatelessWidget {
   void diziUpdatePatch() {
     List<Sezon> sezonlar = [];
     sezonlar.add(Sezon(sezonName: "deneme Sezon"));
-    var dizim = DiziModel(id: 4, diziName: "yepisyenis");
+    var dizim = DiziModel(id: 4, diziName: "yyyyy");
     dizim.sezonlar = sezonlar;
 
     di
