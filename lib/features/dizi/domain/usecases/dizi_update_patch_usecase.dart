@@ -1,3 +1,6 @@
+import 'package:dartz/dartz.dart';
+import 'package:dizi_ayraci_v7/core/error/failure.dart';
+import 'package:dizi_ayraci_v7/core/error/success.dart';
 import 'package:dizi_ayraci_v7/core/usecases/delete_by_id_usecase.dart';
 import 'package:dizi_ayraci_v7/core/usecases/params/params.dart';
 import 'package:dizi_ayraci_v7/core/usecases/update_patch_usecase.dart';
@@ -12,7 +15,7 @@ class DiziUpdatePatchUsecase
 
   DiziUpdatePatchUsecase({required this.diziRepository});
   @override
-  Future<void> call(UpdateDiziPatchParams params) async {
+  Future<Either<Failure, Success>> call(UpdateDiziPatchParams params) async {
     // TODO: implement call
     return await diziRepository.diziUpdatePatch(params);
   }

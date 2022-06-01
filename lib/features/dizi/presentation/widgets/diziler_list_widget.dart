@@ -20,21 +20,28 @@ class DizilerListWidget extends StatelessWidget {
     //   child: Text("asdf"),
     // );
     // print(Get.find<DiziController>().diziler.length);
-    return Obx(() => ListView.builder(
-          itemCount: Get.find<DiziController>().diziler.length,
-          itemBuilder: (context, index) {
-            print("DizilerListView");
 
-            // return Text("sadfiuuuuu");
-            return Card(
-              child: ListTile(
-                title: Get.find<DiziController>().diziler[index].diziName !=
-                        null
-                    ? Text(Get.find<DiziController>().diziler[index].diziName!)
-                    : Text("Dizi adi yok"),
-              ),
-            );
-          },
-        ));
+    return Obx(() => Get.find<DiziController>().isSuccess.value != true
+        ? Center(
+            child: Text("Bir hata olustu: " +
+                Get.find<DiziController>().failureMessage.value),
+          )
+        : ListView.builder(
+            itemCount: Get.find<DiziController>().diziler.length,
+            itemBuilder: (context, index) {
+              print("DizilerListView");
+
+              // return Text("sadfiuuuuu");
+              return Card(
+                child: ListTile(
+                  title: Get.find<DiziController>().diziler[index].diziName !=
+                          null
+                      ? Text(
+                          Get.find<DiziController>().diziler[index].diziName!)
+                      : Text("Dizi adi yok"),
+                ),
+              );
+            },
+          ));
   }
 }

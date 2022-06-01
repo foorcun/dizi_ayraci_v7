@@ -19,7 +19,7 @@ class DiziListPage extends StatelessWidget {
         children: [
           Expanded(
             // child: Text("Dizi list page"),
-            child: const DizilerListWidget(),
+            child: DizilerListWidget(),
           ),
         ],
       ),

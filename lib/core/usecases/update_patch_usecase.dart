@@ -1,3 +1,6 @@
+import 'package:dartz/dartz.dart';
+import 'package:dizi_ayraci_v7/core/error/failure.dart';
+
 abstract class UpdatePatchUsecase<Type, Params> {
-  Future<void> call(Params params);
+  Future<Either<Failure, void>> call(Params params);
 }

@@ -1,3 +1,6 @@
+import 'package:dartz/dartz.dart';
+import 'package:dizi_ayraci_v7/core/error/failure.dart';
+import 'package:dizi_ayraci_v7/core/error/success.dart';
 import 'package:dizi_ayraci_v7/core/usecases/add_usecase.dart';
 import 'package:dizi_ayraci_v7/core/usecases/params/params.dart';
 import 'package:dizi_ayraci_v7/features/dizi/data/models/dizi_model.dart';
@@ -11,7 +14,7 @@ class AddDiziUsecase implements AddUseCase<Dizi, AddDiziParams> {
   });
 
   @override
-  Future<void> call(AddDiziParams params) async {
+  Future<Either<Failure, Success>> call(AddDiziParams params) async {
     // TODO: implement call
     return await diziRepository.addDizi(params);
   }

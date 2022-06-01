@@ -1,5 +1,9 @@
 import 'dart:convert';
 
+import 'package:dartz/dartz.dart';
+import 'package:dizi_ayraci_v7/core/error/exceptions.dart';
+import 'package:dizi_ayraci_v7/core/error/failure.dart';
+import 'package:dizi_ayraci_v7/core/error/success.dart';
 import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/delete_dizi_by_id_usecase.dart';
 import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/dizi_update_patch_usecase.dart';
 import 'package:http/http.dart' as http;
@@ -21,30 +25,35 @@ class DiziRepositoryImpl implements DiziRepository {
       {this.staticDiziRemoteDataSource, this.dynamicDiziRemoteDataSource});
 
   @override
-  Future<List<Dizi>> getAllDiziFuture() async {
-    Uri myUri = Uri.parse("http://127.0.0.1:3000/diziler");
+  Future<Either<Failure, List<Dizi>>> getAllDiziFuture() async {
+    // List<DiziModel> diziListt = [];
 
-    http.Response response = await http.get(myUri);
+    // return Right(diziListt);
 
-    List listJson = JsonHelper.convertResponseToList(response.body);
-    //print("json list length " + listJson.length.toString());
-    //print(listJson[0].toString());
-    List<DiziModel> diziList = [];
-    for (var i = 0; i < listJson.length; i++) {
-      diziList.add(DiziModel.fromMap(listJson[i]));
+    try {
+      Uri myUri = Uri.parse("http://127.0.0.1:3000/diziler");
+
+      http.Response response = await http.get(myUri);
+
+      List listJson = JsonHelper.convertResponseToList(response.body);
+      //print("json list length " + listJson.length.toString());
+      //print(listJson[0].toString());
+      List<DiziModel> diziList = [];
+      for (var i = 0; i < listJson.length; i++) {
+        diziList.add(DiziModel.fromMap(listJson[i]));
+      }
+      return Right(diziList);
+    } catch (e) {
+      // print(e);
+      return Left(ServerFailure(failureMessage: e.toString()));
     }
-
-    return diziList;
+    // } on ServerException {
+    //   return Left(ServerFailure());
+    // }
   }
 
   @override
-  Stream<List<Dizi>> getAllDiziStream() {
-    // TODO: implement getAllDiziStream
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> addDizi(AddDiziParams params) async {
+  Future<Either<Failure, Success>> addDizi(AddDiziParams params) async {
     var uri = Uri.parse("http://localhost:3000/diziler/");
 
     // Map<String, dynamic> bodyyy = {"LstUserOptions": "asdf"};
@@ -64,20 +73,39 @@ class DiziRepositoryImpl implements DiziRepository {
           "Content-Type": "application/json",
         },
       );
-    } catch (e) {
-      print(e);
+      return Right(DataAddedSuccess());
+    } on ServerException {
+      return Left(ServerFailure());
     }
   }
 
   @override
-  Future<void> deleteDiziById(DeleteDiziByIdParams params) async {
+  Future<Either<Failure, Success>> deleteDiziById(
+      DeleteDiziByIdParams params) async {
     // TODO: implement deleteDiziById
-    staticDiziRemoteDataSource?.deleteDiziById(params);
+    try {
+      staticDiziRemoteDataSource?.deleteDiziById(params);
+      return Right(DataDeletedSuccess());
+    } on ServerException {
+      return Left(ServerFailure());
+    }
   }
 
   @override
-  Future<void> diziUpdatePatch(UpdateDiziPatchParams params) async {
+  Future<Either<Failure, Success>> diziUpdatePatch(
+      UpdateDiziPatchParams params) async {
     // TODO: implement diziUpdatePatch
-    staticDiziRemoteDataSource?.diziUpdatePatch(params);
+    try {
+      staticDiziRemoteDataSource?.diziUpdatePatch(params);
+      return Right(DataUpdatedSuccess());
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Stream<Either<Failure, List<Dizi>>> getAllDiziStream() {
+    // TODO: implement getAllDiziStream
+    throw UnimplementedError();
   }
 }
