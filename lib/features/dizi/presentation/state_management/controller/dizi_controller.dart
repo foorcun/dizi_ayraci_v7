@@ -31,18 +31,10 @@ class DiziController extends GetxController {
     var d = await DiziService().getAllDizi();
     print("ddd " + d.toString());
 
-    // if (d.isRight()) {
-    //   diziler.assignAll(d as List<Dizi>);
-    //   return d;
-    // } else if (d.isLeft()) {
-    //   return d;
-    // }
-
     d.fold((l) {
       if (l.failureMessage != null) {
         failureMessage.value = l.failureMessage!;
       }
-
       // failureMessage.value = l.failureMessage;
       return isSuccess.value = false;
     }, (r) {
@@ -52,9 +44,5 @@ class DiziController extends GetxController {
     });
 
     return d;
-
-    // d.isRight(diziler.assignAll(d));
-
-    // if (Right<Failure, List<Dizi>> == d) {}
   }
 }
