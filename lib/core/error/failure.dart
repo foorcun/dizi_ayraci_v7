@@ -19,3 +19,9 @@ class ServerFailure extends Failure {
 class DataNotFoundFailure extends Failure {}
 
 class CacheFailure extends Failure {}
+
+class BilinmeyenHataFailure extends Failure {
+  BilinmeyenHataFailure({
+    String? failureMessage,
+  }) : super(failureMessage: failureMessage);
+}

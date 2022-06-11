@@ -8,41 +8,38 @@ import 'package:get/get.dart';
 class DiziController extends GetxController {
   final diziler = <Dizi>[].obs;
 
-  final isSuccess = true.obs;
-  final failureMessage = "".obs;
+  // final isSuccess = true.obs;
+  // final failureMessage = "".obs;
+
+  final responseC = Rxn<Either<Failure, Success>>();
 
   @override
   void onInit() {
     // TODO: implement onInit
+    super.onInit();
 
     fetchDiziler();
-    // print("diziler değer " + diziler.value.toString());
-    // diziler.bindStream(HttpDiziDB().getAllDizi());
-
-    // ever(qr, (_) {
-    //   secilenRestoran
-    //       .bindStream(FirebaseRestoranDB().findRestoranByUid(qr.value));
-    // });
-    // print("DiziController");
-    super.onInit();
   }
 
-  Future<Either<Failure, List<Dizi>>> fetchDiziler() async {
+  Future<void> fetchDiziler() async {
     var d = await DiziService().getAllDizi();
-    print("ddd " + d.toString());
 
     d.fold((l) {
-      if (l.failureMessage != null) {
-        failureMessage.value = l.failureMessage!;
-      }
-      // failureMessage.value = l.failureMessage;
-      return isSuccess.value = false;
+      responseC.value = Left(l);
+      print("ddd " + d.toString());
     }, (r) {
-      isSuccess.value = true;
       diziler.assignAll(r);
-      return r;
+      responseC.value = Right(GetDataSuccess());
     });
 
-    return d;
+    print("ammaa");
+
+    if (!diziler.isEmpty) {
+      // 304 hatasi icin // aslinda elimizde datalar oldugu icin Failure degil Success olarak degerlendiriyorz.
+      return;
+    }
+
+    responseC.value = Left(// error connection hatasi icin
+        BilinmeyenHataFailure(failureMessage: "Bilinmeyen bir hata olustu"));
   }
 }

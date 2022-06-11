@@ -34,7 +34,7 @@ class DiziRepositoryImpl implements DiziRepository {
       Uri myUri = Uri.parse("http://127.0.0.1:3000/diziler");
 
       http.Response response = await http.get(myUri);
-
+      print("response status " + response.statusCode.toString());
       List listJson = JsonHelper.convertResponseToList(response.body);
       //print("json list length " + listJson.length.toString());
       //print(listJson[0].toString());
@@ -74,8 +74,15 @@ class DiziRepositoryImpl implements DiziRepository {
         },
       );
       return Right(DataAddedSuccess());
-    } on ServerException {
-      return Left(ServerFailure());
+    }
+    // on ServerException {
+    //   print('server exception ici');
+    //   return Left(ServerFailure());
+    // }
+    catch (e) {
+      print("catchteki hata : " + e.toString());
+
+      return Left(BilinmeyenHataFailure(failureMessage: e.toString()));
     }
   }
 
