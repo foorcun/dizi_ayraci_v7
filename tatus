@@ -1,0 +1,341 @@
+warning: LF will be replaced by CRLF in windows/flutter/generated_plugin_registrant.cc.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in windows/flutter/generated_plugin_registrant.h.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in windows/flutter/generated_plugins.cmake.
+The file will have its original line endings in your working directory
+[1mdiff --git a/lib/features/dizi/data/datasources/static/static_dizi_remote_data_source.dart b/lib/features/dizi/data/datasources/static/static_dizi_remote_data_source.dart[m
+[1mindex 77f25e1..536dd4e 100644[m
+[1m--- a/lib/features/dizi/data/datasources/static/static_dizi_remote_data_source.dart[m
+[1m+++ b/lib/features/dizi/data/datasources/static/static_dizi_remote_data_source.dart[m
+[36m@@ -1,9 +1,13 @@[m
+ import 'package:dizi_ayraci_v7/features/dizi/data/models/dizi_model.dart';[m
+[32m+[m[32mimport 'package:dizi_ayraci_v7/features/dizi/domain/usecases/add_dizi_usecase.dart';[m
+ import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/delete_dizi_by_id_usecase.dart';[m
+ import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/dizi_update_patch_usecase.dart';[m
+ [m
+ abstract class StaticDiziRemoteDataSource {[m
+   Future<List<DiziModel>> getAllDiziler();[m
+[32m+[m[32m  Future<List<DiziModel>> getAllDiziFuture();[m
+[32m+[m
+[32m+[m[32m  Future<void> addDizi(AddDiziParams params);[m
+ [m
+   Future<void> deleteDiziById(DeleteDiziByIdParams params);[m
+ [m
+[1mdiff --git a/lib/features/dizi/data/datasources/static/static_fake_remote_data_source.dart b/lib/features/dizi/data/datasources/static/static_fake_remote_data_source.dart[m
+[1mindex 2a94817..f76aeac 100644[m
+[1m--- a/lib/features/dizi/data/datasources/static/static_fake_remote_data_source.dart[m
+[1m+++ b/lib/features/dizi/data/datasources/static/static_fake_remote_data_source.dart[m
+[36m@@ -3,6 +3,7 @@[m [mimport 'dart:convert';[m
+ import 'package:dizi_ayraci_v7/core/utils/json_helper.dart';[m
+ import 'package:dizi_ayraci_v7/features/dizi/data/datasources/static/static_dizi_remote_data_source.dart';[m
+ import 'package:dizi_ayraci_v7/features/dizi/data/models/dizi_model.dart';[m
+[32m+[m[32mimport 'package:dizi_ayraci_v7/features/dizi/domain/usecases/add_dizi_usecase.dart';[m
+ import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/delete_dizi_by_id_usecase.dart';[m
+ import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/dizi_update_patch_usecase.dart';[m
+ [m
+[36m@@ -59,4 +60,37 @@[m [mclass StaticFakeRemoteDataSource implements StaticDiziRemoteDataSource {[m
+       print(e);[m
+     }[m
+   }[m
+[32m+[m
+[32m+[m[32m  @override[m
+[32m+[m[32m  Future<List<DiziModel>> getAllDiziFuture() async {[m
+[32m+[m[32m    Uri myUri = Uri.parse("http://127.0.0.1:3000/diziler");[m
+[32m+[m
+[32m+[m[32m    http.Response response = await http.get(myUri);[m
+[32m+[m[32m    print("response status " + response.statusCode.toString());[m
+[32m+[m[32m    List listJson = JsonHelper.convertResponseToList(response.body);[m
+[32m+[m[32m    //print("json list length " + listJson.length.toString());[m
+[32m+[m[32m    //print(listJson[0].toString());[m
+[32m+[m[32m    List<DiziModel> diziList = [];[m
+[32m+[m[32m    for (var i = 0; i < listJson.length; i++) {[m
+[32m+[m[32m      diziList.add(DiziModel.fromMap(listJson[i]));[m
+[32m+[m[32m    }[m
+[32m+[m[32m    return diziList;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  @override[m
+[32m+[m[32m  Future<void> addDizi(AddDiziParams params) async {[m
+[32m+[m[32m    // TODO: implement addDizi[m
+[32m+[m[32m    var uri = Uri.parse("http://localhost:3000/diziler/");[m
+[32m+[m
+[32m+[m[32m    Map<String, dynamic> bodyyy = params.eklenecekDizi.toMap();[m
+[32m+[m
+[32m+[m[32m    print("bodyyy - " + bodyyy.toString());[m
+[32m+[m[32m    var response = await http.post([m
+[32m+[m[32m      uri,[m
+[32m+[m[32m      body: jsonEncode(bodyyy),[m
+[32m+[m[32m      headers: {[m
+[32m+[m[32m        "Content-Type": "application/json",[m
+[32m+[m[32m      },[m
+[32m+[m[32m    );[m
+[32m+[m[32m  }[m
+ }[m
+[1mdiff --git a/lib/features/dizi/data/repositories/dizi_repository_impl.dart b/lib/features/dizi/data/repositories/dizi_repository_impl.dart[m
+[1mindex f4cc9b1..54ee866 100644[m
+[1m--- a/lib/features/dizi/data/repositories/dizi_repository_impl.dart[m
+[1m+++ b/lib/features/dizi/data/repositories/dizi_repository_impl.dart[m
+[36m@@ -26,62 +26,20 @@[m [mclass DiziRepositoryImpl implements DiziRepository {[m
+ [m
+   @override[m
+   Future<Either<Failure, List<Dizi>>> getAllDiziFuture() async {[m
+[31m-    // List<DiziModel> diziListt = [];[m
+[31m-[m
+[31m-    // return Right(diziListt);[m
+[31m-[m
+     try {[m
+[31m-      Uri myUri = Uri.parse("http://127.0.0.1:3000/diziler");[m
+[31m-[m
+[31m-      http.Response response = await http.get(myUri);[m
+[31m-      print("response status " + response.statusCode.toString());[m
+[31m-      List listJson = JsonHelper.convertResponseToList(response.body);[m
+[31m-      //print("json list length " + listJson.length.toString());[m
+[31m-      //print(listJson[0].toString());[m
+[31m-      List<DiziModel> diziList = [];[m
+[31m-      for (var i = 0; i < listJson.length; i++) {[m
+[31m-        diziList.add(DiziModel.fromMap(listJson[i]));[m
+[31m-      }[m
+[31m-      return Right(diziList);[m
+[32m+[m[32m      return Right(await staticDiziRemoteDataSource!.getAllDiziFuture());[m
+     } catch (e) {[m
+[31m-      // print(e);[m
+       return Left(ServerFailure(failureMessage: e.toString()));[m
+     }[m
+[31m-    // } on ServerException {[m
+[31m-    //   return Left(ServerFailure());[m
+[31m-    // }[m
+   }[m
+ [m
+   @override[m
+   Future<Either<Failure, Success>> addDizi(AddDiziParams params) async {[m
+[31m-    var uri = Uri.parse("http://localhost:3000/diziler/");[m
+[31m-[m
+[31m-    // Map<String, dynamic> bodyyy = {"LstUserOptions": "asdf"};[m
+[31m-[m
+[31m-    // Map<String, dynamic> alt = {'team': 'Team A'};[m
+[31m-[m
+[31m-    // bodyyy["homeTeam"] = null;[m
+[31m-[m
+[31m-    Map<String, dynamic> bodyyy = params.eklenecekDizi.toMap();[m
+[31m-[m
+     try {[m
+[31m-      print("bodyyy - " + bodyyy.toString());[m
+[31m-      var response = await http.post([m
+[31m-        uri,[m
+[31m-        body: jsonEncode(bodyyy),[m
+[31m-        headers: {[m
+[31m-          "Content-Type": "application/json",[m
+[31m-        },[m
+[31m-      );[m
+[32m+[m[32m      await staticDiziRemoteDataSource!.addDizi(params);[m
+       return Right(DataAddedSuccess());[m
+[31m-    }[m
+[31m-    // on ServerException {[m
+[31m-    //   print('server exception ici');[m
+[31m-    //   return Left(ServerFailure());[m
+[31m-    // }[m
+[31m-    catch (e) {[m
+[32m+[m[32m    } catch (e) {[m
+       print("catchteki hata : " + e.toString());[m
+[31m-[m
+       return Left(BilinmeyenHataFailure(failureMessage: e.toString()));[m
+     }[m
+   }[m
+[1mdiff --git a/lib/features/dizi/presentation/widgets/diziler_list_widget.dart b/lib/features/dizi/presentation/widgets/diziler_list_widget.dart[m
+[1mindex 89e5ef9..c53c640 100644[m
+[1m--- a/lib/features/dizi/presentation/widgets/diziler_list_widget.dart[m
+[1m+++ b/lib/features/dizi/presentation/widgets/diziler_list_widget.dart[m
+[36m@@ -21,27 +21,29 @@[m [mclass DizilerListWidget extends StatelessWidget {[m
+   @override[m
+   Widget build(BuildContext context) {[m
+     _loadData();[m
+[31m-    // return Center([m
+[31m-    //   child: Text("asdf"),[m
+[31m-    // );[m
+[31m-    // print(Get.find<DiziController>().diziler.length);[m
+[31m-[m
+[31m-    // return Obx(() => Get.find<DiziController>().isSuccess.value != true[m
+     //     ? _FailureWidget()[m
+     //     : _SuccessWidget());[m
+[31m-    print("asdfsadfsadf");[m
+[31m-    print(Get.find<DiziController>().responseC.value);[m
+     return Obx([m
+       () => Get.find<DiziController>().responseC.value != null[m
+           ? Get.find<DiziController>().responseC.value!.fold((l) {[m
+               return _FailureWidget();[m
+             }, (r) {[m
+[31m-              print("success yazmasi lazim");[m
+               return _SuccessWidget();[m
+             })[m
+[31m-          : Center([m
+[31m-              child: CircularProgressIndicator(),[m
+[31m-            ),[m
+[32m+[m[32m          : _ProgressWidgetim(),[m
+[32m+[m[32m    );[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mclass _ProgressWidgetim extends StatelessWidget {[m
+[32m+[m[32m  const _ProgressWidgetim({[m
+[32m+[m[32m    Key? key,[m
+[32m+[m[32m  }) : super(key: key);[m
+[32m+[m
+[32m+[m[32m  @override[m
+[32m+[m[32m  Widget build(BuildContext context) {[m
+[32m+[m[32m    return Center([m
+[32m+[m[32m      child: CircularProgressIndicator(),[m
+     );[m
+   }[m
+ }[m
+[1mdiff --git a/lib/features/main_presentation/dizi_list_page.dart b/lib/features/main_presentation/dizi_list_page.dart[m
+[1mindex 3457870..5bdf475 100644[m
+[1m--- a/lib/features/main_presentation/dizi_list_page.dart[m
+[1m+++ b/lib/features/main_presentation/dizi_list_page.dart[m
+[36m@@ -2,6 +2,7 @@[m [mimport 'package:dizi_ayraci_v7/features/dizi/presentation/widgets/diziler_list_w[m
+ import 'package:flutter/material.dart';[m
+ import 'package:flutter/src/foundation/key.dart';[m
+ import 'package:flutter/src/widgets/framework.dart';[m
+[32m+[m[32mimport 'package:get/get.dart';[m
+ [m
+ class DiziListPage extends StatelessWidget {[m
+   const DiziListPage({Key? key}) : super(key: key);[m
+[36m@@ -12,6 +13,11 @@[m [mclass DiziListPage extends StatelessWidget {[m
+       appBar: AppBar([m
+         title: Text("Dizi List Page"),[m
+       ),[m
+[32m+[m[32m      floatingActionButton: FloatingActionButton([m
+[32m+[m[32m        onPressed: _floatingAddDizi,[m
+[32m+[m[32m        tooltip: 'Increment',[m
+[32m+[m[32m        child: const Icon(Icons.add),[m
+[32m+[m[32m      ),[m
+       // body: Center([m
+       //   child: Text("asdfadsfdsaf"),[m
+       // ),[m
+[36m@@ -25,4 +31,8 @@[m [mclass DiziListPage extends StatelessWidget {[m
+       ),[m
+     );[m
+   }[m
+[32m+[m
+[32m+[m[32m  void _floatingAddDizi() {[m
+[32m+[m[32m    Get.toNamed("/DiziAddPage");[m
+[32m+[m[32m  }[m
+ }[m
+[1mdiff --git a/lib/main.dart b/lib/main.dart[m
+[1mindex bb47a3b..d71fe46 100644[m
+[1m--- a/lib/main.dart[m
+[1m+++ b/lib/main.dart[m
+[36m@@ -1,7 +1,9 @@[m
+ import 'package:dizi_ayraci_v7/features/dizi/presentation/plain/plain_diziler.dart';[m
+ import 'package:dizi_ayraci_v7/features/dizi/presentation/state_management/all_dizi_bindings.dart';[m
+[32m+[m[32mimport 'package:dizi_ayraci_v7/features/main_presentation/dizi_add_page.dart';[m
+ import 'package:dizi_ayraci_v7/features/main_presentation/dizi_list_page.dart';[m
+ import 'package:flutter/material.dart';[m
+[32m+[m[32mimport 'package:get/get.dart';[m
+ [m
+ import 'injection_container.dart' as di;[m
+ [m
+[36m@@ -25,94 +27,15 @@[m [mclass MyApp extends StatelessWidget {[m
+   // This widget is the root of your application.[m
+   @override[m
+   Widget build(BuildContext context) {[m
+[31m-    return MaterialApp([m
+[31m-      title: 'Flutter Demo',[m
+[31m-      home: const DiziListPage(),[m
+[31m-    );[m
+[31m-  }[m
+[31m-}[m
+[31m-[m
+[31m-class MyHomePage extends StatefulWidget {[m
+[31m-  const MyHomePage({Key? key, required this.title}) : super(key: key);[m
+[31m-[m
+[31m-  // This widget is the home page of your application. It is stateful, meaning[m
+[31m-  // that it has a State object (defined below) that contains fields that affect[m
+[31m-  // how it looks.[m
+[31m-[m
+[31m-  // This class is the configuration for the state. It holds the values (in this[m
+[31m-  // case the title) provided by the parent (in this case the App widget) and[m
+[31m-  // used by the build method of the State. Fields in a Widget subclass are[m
+[31m-  // always marked "final".[m
+[31m-[m
+[31m-  final String title;[m
+[31m-[m
+[31m-  @override[m
+[31m-  State<MyHomePage> createState() => _MyHomePageState();[m
+[31m-}[m
+[31m-[m
+[31m-class _MyHomePageState extends State<MyHomePage> {[m
+[31m-  int _counter = 0;[m
+[31m-[m
+[31m-  void _incrementCounter() {[m
+[31m-    setState(() {[m
+[31m-      // This call to setState tells the Flutter framework that something has[m
+[31m-      // changed in this State, which causes it to rerun the build method below[m
+[31m-      // so that the display can reflect the updated values. If we changed[m
+[31m-      // _counter without calling setState(), then the build method would not be[m
+[31m-      // called again, and so nothing would appear to happen.[m
+[31m-      _counter++;[m
+[31m-    });[m
+[31m-  }[m
+[31m-[m
+[31m-  @override[m
+[31m-  Widget build(BuildContext context) {[m
+[31m-    // This method is rerun every time setState is called, for instance as done[m
+[31m-    // by the _incrementCounter method above.[m
+[31m-    //[m
+[31m-    // The Flutter framework has been optimized to make rerunning build methods[m
+[31m-    // fast, so that you can just rebuild anything that needs updating rather[m
+[31m-    // than having to individually change instances of widgets.[m
+[31m-    return Scaffold([m
+[31m-      appBar: AppBar([m
+[31m-        // Here we take the value from the MyHomePage object that was created by[m
+[31m-        // the App.build method, and use it to set our appbar title.[m
+[31m-        title: Text(widget.title),[m
+[31m-      ),[m
+[31m-      body: Center([m
+[31m-        // Center is a layout widget. It takes a single child and positions it[m
+[31m-        // in the middle of the parent.[m
+[31m-        child: Column([m
+[31m-          // Column is also a layout widget. It takes a list of children and[m
+[31m-          // arranges them vertically. By default, it sizes itself to fit its[m
+[31m-          // children horizontally, and tries to be as tall as its parent.[m
+[31m-          //[m
+[31m-          // Invoke "debug painting" (press "p" in the console, choose the[m
+[31m-          // "Toggle Debug Paint" action from the Flutter Inspector in Android[m
+[31m-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)[m
+[31m-          // to see the wireframe for each widget.[m
+[31m-          //[m
+[31m-          // Column has various properties to control how it sizes itself and[m
+[31m-          // how it positions its children. Here we use mainAxisAlignment to[m
+[31m-          // center the children vertically; the main axis here is the vertical[m
+[31m-          // axis because Columns are vertical (the cross axis would be[m
+[31m-          // horizontal).[m
+[31m-          mainAxisAlignment: MainAxisAlignment.center,[m
+[31m-          children: <Widget>[[m
+[31m-            const Text([m
+[31m-              'You have pushed the button this many times:',[m
+[31m-            ),[m
+[31m-            Text([m
+[31m-              '$_counter',[m
+[31m-              style: Theme.of(context).textTheme.headline4,[m
+[31m-            ),[m
+[31m-          ],[m
+[31m-        ),[m
+[31m-      ),[m
+[31m-      floatingActionButton: FloatingActionButton([m
+[31m-        onPressed: _incrementCounter,[m
+[31m-        tooltip: 'Increment',[m
+[31m-        child: const Icon(Icons.add),[m
+[31m-      ), // This trailing comma makes auto-formatting nicer for build methods.[m
+[32m+[m[32m    return GetMaterialApp([m
+[32m+[m[32m      debugShowCheckedModeBanner: false,[m
+[32m+[m[32m      title: 'Dizi ayraci v7',[m
+[32m+[m[32m      // home: const DiziListPage(),[m
+[32m+[m[32m      initialRoute: "/DiziListPage",[m
+[32m+[m[32m      getPages: [[m
+[32m+[m[32m        GetPage(name: "/DiziListPage", page: () => DiziListPage()),[m
+[32m+[m[32m        GetPage(name: "/DiziAddPage", page: () => DiziAddPage()),[m
+[32m+[m[32m      ],[m
+     );[m
+   }[m
+ }[m

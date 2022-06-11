@@ -21,27 +21,30 @@ class DizilerListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _loadData();
-    // return Center(
-    //   child: Text("asdf"),
-    // );
-    // print(Get.find<DiziController>().diziler.length);
 
-    // return Obx(() => Get.find<DiziController>().isSuccess.value != true
     //     ? _FailureWidget()
     //     : _SuccessWidget());
-    print("asdfsadfsadf");
-    print(Get.find<DiziController>().responseC.value);
     return Obx(
       () => Get.find<DiziController>().responseC.value != null
           ? Get.find<DiziController>().responseC.value!.fold((l) {
               return _FailureWidget();
             }, (r) {
-              print("success yazmasi lazim");
               return _SuccessWidget();
             })
-          : Center(
-              child: CircularProgressIndicator(),
-            ),
+          : _ProgressWidgetim(),
+    );
+  }
+}
+
+class _ProgressWidgetim extends StatelessWidget {
+  const _ProgressWidgetim({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: CircularProgressIndicator(),
     );
   }
 }

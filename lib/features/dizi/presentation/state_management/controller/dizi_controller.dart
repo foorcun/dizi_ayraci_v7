@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:dartz/dartz.dart';
 import 'package:dizi_ayraci_v7/core/error/failure.dart';
 import 'package:dizi_ayraci_v7/core/error/success.dart';
 import 'package:dizi_ayraci_v7/features/dizi/domain/entities/dizi.dart';
+import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/add_dizi_usecase.dart';
 import 'package:dizi_ayraci_v7/features/dizi/presentation/state_management/service/dizi_service.dart';
 import 'package:get/get.dart';
 
@@ -40,6 +43,24 @@ class DiziController extends GetxController {
     }
 
     responseC.value = Left(// error connection hatasi icin
-        BilinmeyenHataFailure(failureMessage: "Bilinmeyen bir hata olustu"));
+        BilinmeyenHataFailure(failureMessage: "Servera baglanilamadi"));
+  }
+
+  Future<Either<Failure, Success>> addDizi(AddDiziParams params) async {
+    var resp = await DiziService().addDizi(params);
+
+    return resp;
+    // var status = 0;
+    // resp.fold((l) {
+    //   status = 0;
+    //   return Left(l);
+    // }, (r) {
+    //   status = 1;
+    //   return Right(r);
+    // });
+
+    // if (status == 0) {
+    //   return Left(l);
+    // } else {}
   }
 }

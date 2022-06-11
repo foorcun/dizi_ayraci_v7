@@ -26,62 +26,20 @@ class DiziRepositoryImpl implements DiziRepository {
 
   @override
   Future<Either<Failure, List<Dizi>>> getAllDiziFuture() async {
-    // List<DiziModel> diziListt = [];
-
-    // return Right(diziListt);
-
     try {
-      Uri myUri = Uri.parse("http://127.0.0.1:3000/diziler");
-
-      http.Response response = await http.get(myUri);
-      print("response status " + response.statusCode.toString());
-      List listJson = JsonHelper.convertResponseToList(response.body);
-      //print("json list length " + listJson.length.toString());
-      //print(listJson[0].toString());
-      List<DiziModel> diziList = [];
-      for (var i = 0; i < listJson.length; i++) {
-        diziList.add(DiziModel.fromMap(listJson[i]));
-      }
-      return Right(diziList);
+      return Right(await staticDiziRemoteDataSource!.getAllDiziFuture());
     } catch (e) {
-      // print(e);
       return Left(ServerFailure(failureMessage: e.toString()));
     }
-    // } on ServerException {
-    //   return Left(ServerFailure());
-    // }
   }
 
   @override
   Future<Either<Failure, Success>> addDizi(AddDiziParams params) async {
-    var uri = Uri.parse("http://localhost:3000/diziler/");
-
-    // Map<String, dynamic> bodyyy = {"LstUserOptions": "asdf"};
-
-    // Map<String, dynamic> alt = {'team': 'Team A'};
-
-    // bodyyy["homeTeam"] = null;
-
-    Map<String, dynamic> bodyyy = params.eklenecekDizi.toMap();
-
     try {
-      print("bodyyy - " + bodyyy.toString());
-      var response = await http.post(
-        uri,
-        body: jsonEncode(bodyyy),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      );
+      await staticDiziRemoteDataSource!.addDizi(params);
       return Right(DataAddedSuccess());
-    }
-    // on ServerException {
-    //   print('server exception ici');
-    //   return Left(ServerFailure());
-    // }
-    catch (e) {
+    } catch (e) {
       print("catchteki hata : " + e.toString());
-
       return Left(BilinmeyenHataFailure(failureMessage: e.toString()));
     }
   }

@@ -1,9 +1,13 @@
 import 'package:dizi_ayraci_v7/features/dizi/data/models/dizi_model.dart';
+import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/add_dizi_usecase.dart';
 import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/delete_dizi_by_id_usecase.dart';
 import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/dizi_update_patch_usecase.dart';
 
 abstract class StaticDiziRemoteDataSource {
   Future<List<DiziModel>> getAllDiziler();
+  Future<List<DiziModel>> getAllDiziFuture();
+
+  Future<void> addDizi(AddDiziParams params);
 
   Future<void> deleteDiziById(DeleteDiziByIdParams params);
 
