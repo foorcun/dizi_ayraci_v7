@@ -2,6 +2,7 @@ import 'package:dizi_ayraci_v7/features/dizi/presentation/widgets/diziler_list_w
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 
 class DiziListPage extends StatelessWidget {
   const DiziListPage({Key? key}) : super(key: key);
@@ -11,6 +12,11 @@ class DiziListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Dizi List Page"),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _floatingAddDizi,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
       ),
       // body: Center(
       //   child: Text("asdfadsfdsaf"),
@@ -24,5 +30,9 @@ class DiziListPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _floatingAddDizi() {
+    Get.toNamed("/DiziAddPage");
   }
 }
