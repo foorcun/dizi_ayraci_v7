@@ -4,6 +4,7 @@ import 'package:dizi_ayraci_v7/features/dizi/data/datasources/dynamic/dizi_fake_
 import 'package:dizi_ayraci_v7/features/dizi/data/datasources/dynamic/dynamic_dizi_remote_data_source.dart';
 import 'package:dizi_ayraci_v7/features/dizi/data/datasources/static/static_dizi_remote_data_source.dart';
 import 'package:dizi_ayraci_v7/features/dizi/data/datasources/static/static_fake_remote_data_source.dart';
+import 'package:dizi_ayraci_v7/features/dizi/data/datasources/static/static_fire_remote_data_source.dart';
 import 'package:dizi_ayraci_v7/features/dizi/data/repositories/dizi_repository_impl.dart';
 import 'package:dizi_ayraci_v7/features/dizi/domain/repositories/dizi_repository.dart';
 import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/add_dizi_usecase.dart';
@@ -94,8 +95,13 @@ Future<void> init() async {
   // );
 
   //! diziler data source
+  // sl.registerLazySingleton<StaticDiziRemoteDataSource>(
+  //   () => StaticFakeRemoteDataSource(
+  //       // firebaseStore: FirebaseFirestore.instance),
+  //       ),
+  // );
   sl.registerLazySingleton<StaticDiziRemoteDataSource>(
-    () => StaticFakeRemoteDataSource(
+    () => StaticFireRemoteDataSource(
         // firebaseStore: FirebaseFirestore.instance),
         ),
   );

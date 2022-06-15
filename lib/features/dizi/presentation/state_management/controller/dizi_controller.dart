@@ -35,7 +35,7 @@ class DiziController extends GetxController {
       responseC.value = Right(GetDataSuccess());
     });
 
-    print("ammaa");
+    print("ammaan");
 
     if (!diziler.isEmpty) {
       // 304 hatasi icin // aslinda elimizde datalar oldugu icin Failure degil Success olarak degerlendiriyorz.
@@ -50,17 +50,5 @@ class DiziController extends GetxController {
     var resp = await DiziService().addDizi(params);
 
     return resp;
-    // var status = 0;
-    // resp.fold((l) {
-    //   status = 0;
-    //   return Left(l);
-    // }, (r) {
-    //   status = 1;
-    //   return Right(r);
-    // });
-
-    // if (status == 0) {
-    //   return Left(l);
-    // } else {}
   }
 }

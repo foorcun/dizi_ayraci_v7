@@ -3,7 +3,6 @@
     ".dart_tool": true,
     ".idea": true,
     ".vscode": true,
-    "android": true,
     "ios": true,
     "windows": true,
     ".gitignore": true,
@@ -13,7 +12,6 @@
     "dizi_ayraci_v7.iml": true,
     "pubspec.lock": true,
     "README.md": true,
-    "web": true,
     "dizi\\.dart_tool": true,
     "dizi\\.idea": true,
     "dizi\\.gitignore": true,
@@ -27,6 +25,9 @@
     "dizi\\pubspec.lock": true,
     ".flutter-plugins": true,
     ".flutter-plugins-dependencies": true,
-    "build": true
+    "build": true,
+    "web": true,
+    "tatus": true,
+    "android": true
   }
 }
