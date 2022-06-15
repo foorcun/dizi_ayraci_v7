@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 
 class DizilerListWidget extends StatelessWidget {
@@ -62,16 +63,87 @@ class _SuccessWidget extends StatelessWidget {
             // print("DizilerListView");
 
             // return Text("sadfiuuuuu");
-            return Card(
-              child: ListTile(
-                title: Get.find<DiziController>().diziler[index].diziName !=
-                        null
-                    ? Text(Get.find<DiziController>().diziler[index].diziName!)
-                    : Text("Dizi adi yok"),
+            return Slidable(
+              child: DizilerCard(index: index),
+              endActionPane: ActionPane(
+                motion: const ScrollMotion(),
+                children: [
+                  _SlidableActionDiziList(),
+                ],
               ),
             );
           },
         ));
+  }
+}
+
+class _SlidableActionDiziList extends StatelessWidget {
+  const _SlidableActionDiziList({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SlidableAction(
+      flex: 2,
+      onPressed: (BuildContext context) {
+        print("basıldım...");
+
+        showDialog(
+            context: context,
+            builder: (_) {
+              return CupertinoAlertDialog(
+                // content: Text(cDizi.diziName.toString() +
+                content: Text(
+                    "cDizi.diziName.toString()" + " silmek ister misiniz?"),
+                actions: [
+                  CupertinoDialogAction(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Navigator.pop(context);
+                        Get.back();
+                      },
+                      child: Text("İptal"),
+                    ),
+                  ),
+                  CupertinoDialogAction(
+                    child: ElevatedButton(
+                      child: Text("Evet"),
+                      onPressed: () async {
+                        // await cDizi.delete();
+                        Get.back();
+                      },
+                    ),
+                  )
+                ],
+              );
+            });
+      },
+      backgroundColor: Colors.red,
+      foregroundColor: Colors.white,
+      icon: Icons.delete_forever,
+      label: 'Delete',
+    );
+  }
+}
+
+class DizilerCard extends StatelessWidget {
+  int index = -1;
+  DizilerCard({
+    required this.index,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    print(index);
+    return Card(
+      child: ListTile(
+        title: Get.find<DiziController>().diziler[index].diziName != null
+            ? Text(Get.find<DiziController>().diziler[index].diziName!)
+            : Text("Dizi adi yok"),
+      ),
+    );
   }
 }
 
