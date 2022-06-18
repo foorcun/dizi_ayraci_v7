@@ -18,14 +18,15 @@ class SignInButtonum extends StatelessWidget {
         var response =
             await Get.find<UserController>().signIn(AuthGoogleSingInStrateji());
         print(response);
-        response.fold(
-            (l) => null,
-            (r) => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          Get.find<UserController>().homePage),
-                ));
+        response.fold((l) => null, (r) {
+          // return Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (context) =>
+          //             Get.find<UserController>().homePage),
+          //   );
+          Get.off(Get.find<UserController>().homePage);
+        });
         // await userController.myUser.value
         //     .setAuthStrateji(AuthGoogleSingInStrateji());
         // print(userController.myUser.value.authStrateji.toString());
