@@ -9,6 +9,14 @@ class BenimUser {
 
   UserCredential? userCredential;
 
+  User? _firebaseUser;
+
+  User? get firebaseUser => _firebaseUser;
+
+  set firebaseUser(User? firebaseUser) {
+    _firebaseUser = firebaseUser;
+  }
+
   // User({
   //   required this.userName,
   // });
@@ -23,6 +31,9 @@ class BenimUser {
     this.authStrateji = authStrateji;
   }
 
+  BenimUser.withFireUser(User fUser) {
+    _firebaseUser = fUser;
+  }
   // userSignIn() async {
   //   userCredential = await authStrateji!.signIn();
   // }

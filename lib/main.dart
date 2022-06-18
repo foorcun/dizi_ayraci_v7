@@ -20,7 +20,7 @@ void main() async {
   await di.init();
   AllDiziBindings().dependencies();
   AllAuthInit().dependencies(); // Auth initialize etmeyi unutma
-  MainPresentationHelper.homePage = DiziListPage();
+  // MainPresentationHelper.homePage = DiziListPage();
 
   // runApp(const PlainDiziler());
 
@@ -33,19 +33,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Dizi ayraci v7',
-      // home: const DiziListPage(),
-      // initialRoute: "/DiziListPage",
-      initialRoute: "/PlainSignIn",
-      getPages: [
-        GetPage(name: "/DiziListPage", page: () => DiziListPage()),
-        GetPage(name: "/DiziAddPage", page: () => DiziAddPage()),
-        GetPage(
-            name: "/PlainSignIn",
-            page: () => MainPresentationHelper.plainSignIn),
-      ],
+    return GetBuilder<UserController>(
+      builder: ((_) {
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Dizi ayraci v7',
+          // home: const DiziListPage(),
+          // initialRoute: "/DiziListPage",
+          initialRoute: "/PlainSignIn",
+          getPages: [
+            GetPage(name: "/DiziListPage", page: () => DiziListPage()),
+            GetPage(name: "/DiziAddPage", page: () => DiziAddPage()),
+            GetPage(
+                name: "/PlainSignIn",
+                page: () => MainPresentationHelper.getPlainSignIn()),
+          ],
+        );
+      }),
     );
   }
 }

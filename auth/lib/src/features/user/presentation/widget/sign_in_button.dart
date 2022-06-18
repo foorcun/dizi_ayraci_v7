@@ -6,7 +6,7 @@ import 'package:flutter_signin_button/button_view.dart';
 import 'package:get/get.dart';
 
 class SignInButtonum extends StatelessWidget {
-  const SignInButtonum({Key? key}) : super(key: key);
+  SignInButtonum({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,29 +15,13 @@ class SignInButtonum extends StatelessWidget {
       text: "Google ile giriş yapın..",
       onPressed: () async {
         print("basıldı..");
+
         var response =
             await Get.find<UserController>().signIn(AuthGoogleSingInStrateji());
         print(response);
-        response.fold((l) => null, (r) {
-          // return Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //         builder: (context) =>
-          //             Get.find<UserController>().homePage),
-          //   );
-          Get.off(Get.find<UserController>().homePage);
-        });
-        // await userController.myUser.value
-        //     .setAuthStrateji(AuthGoogleSingInStrateji());
-        // print(userController.myUser.value.authStrateji.toString());
-        // await userController.myUser.value.userSignIn();
-        // // userController.myUser.value.user = fireAuth.currentUser;
-        // userController.getFirebaseUser().value = fireAuth.currentUser;
-        // print("firebaseuser " + fireAuth.currentUser!.email.toString());
-        // // print(userController.myUser.value.getEmail());
-        // // Get.off(HomePage());
-        // print(userController.getFirebaseUser().value!.email);
-        // Get.offNamed("/ScannerResponsive");
+        // response.fold((l) => null, (r) {
+        //   Get.off(Get.find<UserController>().homePage);
+        // });
       },
     );
   }

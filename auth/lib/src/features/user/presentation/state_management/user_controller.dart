@@ -1,4 +1,6 @@
 import 'package:auth/auth.dart';
+import 'package:auth/src/core/singlelar/singlelar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../core/error/failure.dart';
 import '../../../../core/error/success.dart';
@@ -10,9 +12,58 @@ import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 
 class UserController extends GetxController {
-  var myUser = BenimUser().obs;
+  Rx<BenimUser> myUser = BenimUser().obs;
+
+  late Rx<User?> _firebaseUser;
+
   // var homePage = const HomePage();
   var homePage = MainPresentationHelper.homePage;
+
+  @override
+  void onReady() {
+    // myUser.bindStream(_auth.o)
+    // myUser.value.user = Rx<User?>(fireAuth.currentUser);
+    // myUser.value.user!.bindStream(fireAuth.userChanges());
+    // ever(myUser.value.user, _setInitialScreen);
+    print("user controller onReady()");
+    // firebaseUser = Rx<User?>(fireAuth.currentUser);
+    setFirebaseUser(Rx<User?>(fireAuth.currentUser));
+    // _firebaseUser.bindStream(fireAuth.userChanges());
+    _firebaseUser.bindStream(fireAuth.userChanges());
+    ever(_firebaseUser, _setInitialScreen);
+  }
+
+  _setInitialScreen(User? user) {
+    myUser.value.firebaseUser = user;
+    if (user != null) {
+      // Get.offAll(ScannerResponsive()); //! giris sonrasi başlangıç screen sec
+      //!   off kullanirken dikkatli olmak lazm : https://www.youtube.com/watch?v=qmmw6OEP0CU&ab_channel=dbestech
+
+      Get.offAll(MainPresentationHelper
+          .homePage); //! giris sonrasi başlangıç screen sec
+      print(user);
+
+      print(user);
+    } else {
+      // Get.offAll(GoogleSignInButton()); //! başlangıç screen sec
+      // setSignInPage(SignInView());
+      //!   off kullanirken dikkatli olmak lazm : https://www.youtube.com/watch?v=qmmw6OEP0CU&ab_channel=dbestech
+      Get.offAll(
+          MainPresentationHelper.getPlainSignIn()); //! başlangıç screen sec
+    }
+  }
+
+  setFirebaseUser(Rx<User?> user) {
+    _firebaseUser = user;
+  }
+
+  Rx<User?> getFirebaseUser() {
+    // if (_firebaseUser.value == null) {
+    //   //!
+    //   setFirebaseUser(Rx<User?>(fireAuth.currentUser));
+    // }
+    return _firebaseUser;
+  }
 
   Future<Either<Failure, Success>> signIn(AuthStrateji authStrateji) async {
     // var userCredential = await AuthGoogleSingInStrateji().signIn();

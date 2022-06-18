@@ -15,12 +15,19 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("Homepageiim ben.."),
-            Get.find<UserController>().myUser.value.userCredential != null
+            // Get.find<UserController>().myUser.value.userCredential != null
+            //     ? Text(Get.find<UserController>()
+            //         .myUser
+            //         .value
+            //         .userCredential!
+            //         .user!
+            //         .email!)
+            //     : Text("uid null"),
+            Get.find<UserController>().myUser.value.firebaseUser != null
                 ? Text(Get.find<UserController>()
                     .myUser
                     .value
-                    .userCredential!
-                    .user!
+                    .firebaseUser!
                     .email!)
                 : Text("uid null"),
             SignOutButton()
