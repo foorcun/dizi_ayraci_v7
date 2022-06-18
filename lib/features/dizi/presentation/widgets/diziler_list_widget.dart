@@ -136,7 +136,7 @@ class DizilerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(index);
+    // print(index);
     return Card(
       child: ListTile(
         title: Get.find<DiziController>().diziler[index].diziName != null
