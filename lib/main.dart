@@ -15,12 +15,14 @@ import 'injection_container.dart' as di;
 // flutter run -d chrome --web-hostname localhost --web-port 5000 --no-sound-null-safety
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
   await di.init();
   AllDiziBindings().dependencies();
   AllAuthInit().dependencies(); // Auth initialize etmeyi unutma
   // MainPresentationHelper.homePage = DiziListPage();
+  // final UserController uC = Get.put(UserController()); //
 
   // runApp(const PlainDiziler());
 
@@ -33,23 +35,34 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<UserController>(
-      builder: ((_) {
-        return GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Dizi ayraci v7',
-          // home: const DiziListPage(),
-          // initialRoute: "/DiziListPage",
-          initialRoute: "/PlainSignIn",
-          getPages: [
-            GetPage(name: "/DiziListPage", page: () => DiziListPage()),
-            GetPage(name: "/DiziAddPage", page: () => DiziAddPage()),
-            GetPage(
-                name: "/PlainSignIn",
-                page: () => MainPresentationHelper.getPlainSignIn()),
-          ],
-        );
-      }),
+    // return GetBuilder<UserController>(
+    //   builder: ((_) {
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Dizi ayraci v7',
+      // home: const DiziListPage(),
+      // initialRoute: "/DiziListPage",
+      initialRoute: "/home",
+      getPages: [
+        GetPage(name: "/DiziListPage", page: () => DiziListPage()),
+        GetPage(name: "/DiziAddPage", page: () => DiziAddPage()),
+        // GetPage(
+        //     name: "/PlainSignIn",
+        //     page: () => MainPresentationHelper.getPlainSignIn()),
+        GetPage(
+            name: "/home", page: () => MainPresentationHelper.getHomeView()),
+        GetPage(
+            name: "/login",
+            page: () => MainPresentationHelper.getLogin(),
+            binding: LoginBinding()),
+        GetPage(
+          name: "/welcome",
+          page: () => MainPresentationHelper.getWelcome(),
+          binding: WelcomeBinding(),
+        ),
+      ],
     );
+    // }),
+    // );
   }
 }

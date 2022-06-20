@@ -17,7 +17,15 @@ class UserController extends GetxController {
   late Rx<User?> _firebaseUser;
 
   // var homePage = const HomePage();
-  var homePage = MainPresentationHelper.homePage;
+  // var homePage = MainPresentationHelper.homePage;
+
+  // static final UserController _singleton = UserController._internal();
+  // UserController._internal();
+  // factory UserController() {
+  //   print("UserController singleton block");
+
+  //   return _singleton;
+  // }
 
   @override
   void onReady() {
@@ -39,17 +47,17 @@ class UserController extends GetxController {
       // Get.offAll(ScannerResponsive()); //! giris sonrasi başlangıç screen sec
       //!   off kullanirken dikkatli olmak lazm : https://www.youtube.com/watch?v=qmmw6OEP0CU&ab_channel=dbestech
 
-      Get.offAll(MainPresentationHelper
-          .homePage); //! giris sonrasi başlangıç screen sec
-      print(user);
+      // Get.offAll(MainPresentationHelper
+      //     .homePage); //! giris sonrasi başlangıç screen sec
+      // print(user);
 
       print(user);
     } else {
       // Get.offAll(GoogleSignInButton()); //! başlangıç screen sec
       // setSignInPage(SignInView());
       //!   off kullanirken dikkatli olmak lazm : https://www.youtube.com/watch?v=qmmw6OEP0CU&ab_channel=dbestech
-      Get.offAll(
-          MainPresentationHelper.getPlainSignIn()); //! başlangıç screen sec
+      // Get.offAll(
+      //     MainPresentationHelper.getPlainSignIn()); //! başlangıç screen sec
     }
   }
 

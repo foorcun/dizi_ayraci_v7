@@ -1,3 +1,5 @@
+import 'package:auth/src/features/user/presentation/state_management/controllers/sign_in_buttonum_controller.dart';
+
 import '../../data/datasource/auth_google_sign_in_strateji.dart';
 import '../state_management/user_controller.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +7,7 @@ import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:get/get.dart';
 
-class SignInButtonum extends StatelessWidget {
+class SignInButtonum extends GetView<SignInButtonumController> {
   SignInButtonum({Key? key}) : super(key: key);
 
   @override
