@@ -11,5 +11,6 @@ abstract class Routes {
 abstract class _Paths {
   static const LOGIN = '/login';
   static const HOME = '/home';
-  static const WELCOME = '/welcome';
+  // static const WELCOME = '/welcome'; // default welcomeView
+  static const WELCOME = '/DiziListPage';
 }
