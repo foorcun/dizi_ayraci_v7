@@ -6,6 +6,7 @@
 
 import 'dart:convert';
 
+import 'package:dizi_ayraci_v7/core/common_domain/dizi_ayraci/aggregate_root.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:dizi_ayraci_v7/features/sezon/domain/entites/sezon.dart';
@@ -18,15 +19,17 @@ import 'package:dizi_ayraci_v7/features/sezon/domain/entites/sezon.dart';
 // flutter pub run build_runner build
 
 // @JsonSerializable(explicitToJson: true)
-class Dizi extends Equatable {
-  int? id;
+class Dizi extends AggregateRoot<int> {
+  // int? id;
   String? diziName;
   List<Sezon>? sezonlar = [Sezon(sezonName: "dizi class ici")];
   Dizi({
-    this.id,
+    int? id,
     this.diziName,
     this.sezonlar,
-  });
+  }){
+    super.id=id;
+  }
 
   // // addSezon(Sezon sezon) {
   // //   this.sezonlar.add(sezon);
@@ -36,9 +39,9 @@ class Dizi extends Equatable {
 
   // Map<String, dynamic> toJson() => _$DiziToJson(this);
 
-  @override
-  // TODO: implement props
-  List<Object> get props => [diziName!, sezonlar!];
+  // @override
+  // // TODO: implement props
+  // List<Object> get props => [diziName!, sezonlar!];
 
   // @override
   // String toString() => 'Dizi(diziName: $diziName, sezonlar: $sezonlar)';
