@@ -10,16 +10,21 @@ import 'package:mocktail/mocktail.dart';
 
 class MockStaticFireRemoteDataSource extends Mock implements StaticFireDiziRemoteDataSource{}
 
+// test edilen GetAllUseCaseDiziFuture
+// diziRepository interface - DiziRepositoryImpl implementation
+// staticDiziRemoteDataSource interface - MockStaticFireRemoteDataSource implementation
+
 void main() {
   late GetAllUseCaseDiziFuture sut; // system under test
-  late DiziRepository diziRepository;
-  late StaticDiziRemoteDataSource staticDiziRemoteDataSource; // implements StaticDiziRemoteDataSource
+  late DiziRepository diziRepository; // interface for poly
+  late StaticDiziRemoteDataSource staticDiziRemoteDataSource; // interface for poly
 
 
   setUp(() {
-    staticDiziRemoteDataSource = MockStaticFireRemoteDataSource();
-    diziRepository = DiziRepositoryImpl(staticDiziRemoteDataSource:staticDiziRemoteDataSource );
-    sut = GetAllUseCaseDiziFuture(diziRepository:diziRepository ); // flaky test
+    staticDiziRemoteDataSource = MockStaticFireRemoteDataSource(); // mock implementation class
+    // staticDiziRemoteDataSource = StaticFireDiziRemoteDataSource();
+    diziRepository = DiziRepositoryImpl(staticDiziRemoteDataSource:staticDiziRemoteDataSource ); // implementation class
+    sut = GetAllUseCaseDiziFuture(diziRepository:diziRepository ); 
   });
 
   group('getDizi', () {
