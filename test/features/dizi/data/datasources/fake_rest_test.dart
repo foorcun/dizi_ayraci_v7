@@ -1,53 +1,54 @@
-import 'dart:convert';
+// import 'dart:convert';
 
-import 'package:dizi_ayraci_v7/features/dizi/data/datasources/static/static_fake_remote_data_source.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+// import 'package:dizi_ayraci_v7/features/dizi/data/datasources/static/static_fake_remote_data_source.dart';
+// import 'package:flutter_test/flutter_test.dart';
 
-import 'package:http/http.dart' as http;
 
-class HttpClient extends Mock implements http.Client {}
+// import 'package:http/http.dart' as http;
+// import 'package:mocktail/mocktail.dart';
 
-void main() {
-  StaticFakeRemoteDataSource sut;
-  HttpClient client;
+// class HttpClient extends Mock implements http.Client {}
 
-  setUp(() {
-    // client = HttpClient();
-    // sut = StaticFakeRemoteDataSource();
-  });
+// void main() {
+//   StaticFakeRemoteDataSource sut;
+//   HttpClient client;
 
-  group("getAllDiziFuture()", () {
-    test("returns an empty list when no dizi found", () async {
-      // setup
-      client = HttpClient();
-      sut = StaticFakeRemoteDataSource();
+//   setUp(() {
+//     // client = HttpClient();
+//     // sut = StaticFakeRemoteDataSource();
+//   });
 
-      // arrange
-      when(client.get(Uri())).thenAnswer(
-          (_) async => http.Response(jsonEncode({"diziler": []}), 200));
+//   group("getAllDiziFuture()", () {
+//     test("returns an empty list when no dizi found", () async {
+//       // setup
+//       client = HttpClient();
+//       sut = StaticFakeRemoteDataSource();
 
-      // act
-      final results = await sut.getAllDiziFuture();
+//       // arrange
+//       when(client.get(Uri())).thenAnswer(
+//           (_) async => http.Response(jsonEncode({"diziler": []}), 200));
 
-      // assert
-      expect(results, []);
-    });
-  });
-}
+//       // act
+//       final results = await sut.getAllDiziFuture();
 
-_dizilerJson() {
-  return {
-    "diziler": [
-      {
-        "id": 1,
-        "diziName": "Attack on Titan",
-        "sezonlar": [
-          {"parentDiziId": 1, "id": 2, "sezonName": "1. Sezon"}
-        ]
-      },
-      {"id": 2, "diziName": "Breaking Bad", "sezonlar": []},
-      {"id": 3, "diziName": "Çarpışma", "sezonlar": []}
-    ]
-  };
-}
+//       // assert
+//       expect(results, []);
+//     });
+//   });
+// }
+
+// _dizilerJson() {
+//   return {
+//     "diziler": [
+//       {
+//         "id": 1,
+//         "diziName": "Attack on Titan",
+//         "sezonlar": [
+//           {"parentDiziId": 1, "id": 2, "sezonName": "1. Sezon"}
+//         ]
+//       },
+//       {"id": 2, "diziName": "Breaking Bad", "sezonlar": []},
+//       {"id": 3, "diziName": "Çarpışma", "sezonlar": []}
+//     ]
+//   };
+// }

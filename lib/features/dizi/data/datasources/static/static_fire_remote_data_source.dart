@@ -9,7 +9,7 @@ import 'package:dizi_ayraci_v7/features/dizi/domain/usecases/dizi_update_patch_u
 
 import 'package:http/http.dart' as http;
 
-class StaticFireRemoteDataSource implements StaticDiziRemoteDataSource {
+class StaticFireDiziRemoteDataSource implements StaticDiziRemoteDataSource {
   Uri myUri = Uri.parse("https://js-test-e5720.firebaseio.com/diziler.json");
 
   @override

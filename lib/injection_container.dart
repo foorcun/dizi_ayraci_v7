@@ -45,7 +45,7 @@ Future<void> init() async {
   // sl.registerLazySingleton(() => GetAllByFailureDiziler(sl()));
   // sl.registerLazySingleton(() => GetAllDizilerByUser(sl()));
   // sl.registerLazySingleton(() => AddDiziToUser(sl()));
-  sl.registerLazySingleton(() => GetAllUseCaseDiziFuture(sl()));
+  sl.registerLazySingleton(() => GetAllUseCaseDiziFuture( diziRepository: sl()));
   sl.registerLazySingleton(() => AddDiziUsecase(diziRepository: sl()));
   sl.registerLazySingleton(() => DeleteDiziByIdUsecase(diziRepository: sl()));
   sl.registerLazySingleton(() => DiziUpdatePatchUsecase(diziRepository: sl()));
@@ -101,7 +101,7 @@ Future<void> init() async {
   //       ),
   // );
   sl.registerLazySingleton<StaticDiziRemoteDataSource>(
-    () => StaticFireRemoteDataSource(
+    () => StaticFireDiziRemoteDataSource(
         // firebaseStore: FirebaseFirestore.instance),
         ),
   );

@@ -5,13 +5,13 @@ import 'package:dizi_ayraci_v7/features/dizi/domain/entities/dizi.dart';
 import 'package:dizi_ayraci_v7/features/dizi/domain/repositories/dizi_repository.dart';
 
 class GetAllUseCaseDiziFuture implements GetAllUseCaseFuture<Dizi> {
-  final DiziRepository repository;
+  final DiziRepository diziRepository;
   GetAllUseCaseDiziFuture(
-    this.repository,
+   {required this.diziRepository,}
   );
 
   @override
   Future<Either<Failure, List<Dizi>>> call() async {
-    return repository.getAllDiziFuture();
+    return diziRepository.getAllDiziFuture();
   }
 }
