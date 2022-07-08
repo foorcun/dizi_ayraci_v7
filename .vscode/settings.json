@@ -39,6 +39,8 @@
     "auth\\LICENSE": true,
     "auth\\CHANGELOG.md": true,
     "auth\\auth.iml": true,
-    "auth\\.packages": true
+    "auth\\.packages": true,
+    "lib": true,
+    "test": true
   }
 }

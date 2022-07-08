@@ -23,3 +23,5 @@ class SignOutFailure extends Failure {}
 class DataNotFoundFailure extends Failure {}
 
 class CacheFailure extends Failure {}
+
+class MockFailure extends Failure{}

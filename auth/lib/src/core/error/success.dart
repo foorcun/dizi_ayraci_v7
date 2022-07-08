@@ -10,3 +10,7 @@ abstract class Success extends Equatable {
 class SignInSuccess extends Success {}
 
 class SignOutSuccess extends Success {}
+
+class DataUpdatedSuccess extends Success{}
+
+class MockSuccess extends Success {}

@@ -1,3 +1,5 @@
+import 'package:auth/src/features/user/data/datasource/static/static_fire_user_remote_datasource.dart';
+
 import 'features/user/data/repository/user_repository_impl.dart';
 import 'features/user/domain/repositories/user_repository.dart';
 import 'features/user/domain/usecases/sign_in_user_usecase.dart';
@@ -33,7 +35,7 @@ Future<void> init() async {
 
   // ! dizi repository
   sl.registerLazySingleton<UserRepository>(
-    () => UserRepositoryImpl(
+    () => UserRepositoryImpl( staticUserRemoteDataSource: StaticFireUserRemoteDataSource()
         // networkInfo: sl(),
 
         ),
