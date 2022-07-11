@@ -7,6 +7,7 @@ import 'package:auth/src/features/user/domain/repositories/user_repository.dart'
 import 'package:auth/src/features/user/domain/usecases/write_user_data_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:dartz/dartz.dart';
 
 class MockStaticFireUserRemoteDataSource extends Mock
     implements StaticFireUserRemoteDataSource {}
@@ -26,36 +27,49 @@ void main() {
   late StaticUserRemoteDataSource
       staticUserRemoteDataSource; // interface for poly
   late MockAddUserParams mockAddUserParams;
-  setUp(() {
+
+  group("usecase - repository test", () {
+    setUp(() {
 //mock class
-    staticUserRemoteDataSource = MockStaticFireUserRemoteDataSource();
+      staticUserRemoteDataSource = MockStaticFireUserRemoteDataSource();
 
-    mockAddUserParams = MockAddUserParams();
+      mockAddUserParams = MockAddUserParams();
 //gercek classlar
-// userRepository = MockUserRepositoryImpl(); //! call flow ilk adimi olan usercase-repository test icin gerekli
-userRepository = UserRepositoryImpl(staticUserRemoteDataSource:staticUserRemoteDataSource );
+      userRepository =
+          MockUserRepositoryImpl(); //! call flow ilk adimi olan usercase-repository test icin gerekli
+// userRepository = UserRepositoryImpl(staticUserRemoteDataSource:staticUserRemoteDataSource );
 
-    sut = WriteUserDataUsecase(userRepository: userRepository);
+      sut = WriteUserDataUsecase(userRepository: userRepository);
+    });
+    test(
+      "mock repository",
+      () async {
+        //arrange
+        when(() => userRepository.addUser(mockAddUserParams))
+            .thenAnswer((_) async => Right(MockSuccess()));
+
+        //act
+        await sut.call(mockAddUserParams);
+
+        //assert
+        verify(() => userRepository.addUser(mockAddUserParams)).called(1);
+      },
+    );
   });
 
-  // group("usecase - repository test", () {
-  //   test(
-  //     "mock repository",
-  //     () async {
-  //       //arrange
-  //       when(() => userRepository.addUser(mockAddUserParams))
-  //           .thenAnswer((_) async => Right(MockSuccess()));
-
-  //       //act
-  //       await sut.call(mockAddUserParams);
-
-  //       //assert
-  //       verify(() => userRepository.addUser(mockAddUserParams)).called(1);
-  //     },
-  //   );
-  // });
-
   group('call flow test usecase-repository-datasource', () {
+    setUp(() {
+//mock class
+      staticUserRemoteDataSource = MockStaticFireUserRemoteDataSource();
+
+      mockAddUserParams = MockAddUserParams();
+//gercek classlar
+// userRepository = MockUserRepositoryImpl(); //! call flow ilk adimi olan usercase-repository test icin gerekli
+      userRepository = UserRepositoryImpl(
+          staticUserRemoteDataSource: staticUserRemoteDataSource);
+
+      sut = WriteUserDataUsecase(userRepository: userRepository);
+    });
     void arrangeWriteUserData() {
       when(() => staticUserRemoteDataSource.addUser(mockAddUserParams))
           .thenAnswer((_) async => MockSuccess());
