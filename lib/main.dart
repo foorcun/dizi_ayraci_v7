@@ -1,5 +1,6 @@
 import 'package:auth/auth.dart';
 import 'package:dizi_ayraci_v7/features/dizi/presentation/state_management/all_dizi_bindings.dart';
+import 'package:dizi_ayraci_v7/features/dizi/presentation/state_management/bindings/dizi_list_page_binding.dart';
 import 'package:dizi_ayraci_v7/features/main_presentation/dizi_add_page.dart';
 import 'package:dizi_ayraci_v7/features/main_presentation/dizi_list_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -44,7 +45,10 @@ class MyApp extends StatelessWidget {
       // initialRoute: "/DiziListPage",
       initialRoute: "/home",
       getPages: [
-        GetPage(name: "/DiziListPage", page: () => DiziListPage()),
+        GetPage(
+            name: "/DiziListPage",
+            page: () => DiziListPage(),
+            binding: DiziListPageBinding()),
         GetPage(name: "/DiziAddPage", page: () => DiziAddPage()),
         // GetPage(
         //     name: "/PlainSignIn",

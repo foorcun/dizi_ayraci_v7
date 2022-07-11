@@ -1,4 +1,5 @@
 import 'package:auth/src/features/user/data/datasource/static/static_fire_user_remote_datasource.dart';
+import 'package:auth/src/features/user/domain/usecases/write_user_data_usecase.dart';
 
 import 'features/user/data/repository/user_repository_impl.dart';
 import 'features/user/domain/repositories/user_repository.dart';
@@ -13,6 +14,7 @@ Future<void> init() async {
   //! dizi use case
   sl.registerLazySingleton(() => SignInUserUsecase(repository: sl()));
   sl.registerLazySingleton(() => SignOutUserUsecase(repository: sl()));
+  sl.registerLazySingleton(() => WriteUserDataUsecase(userRepository: sl()));
   // sl.registerLazySingleton(() => AddDiziUsecase(diziRepository: sl()));
   // sl.registerLazySingleton(() => DeleteDiziByIdUsecase(diziRepository: sl()));
   // sl.registerLazySingleton(() => DiziUpdatePatchUsecase(diziRepository: sl()));
@@ -35,7 +37,8 @@ Future<void> init() async {
 
   // ! dizi repository
   sl.registerLazySingleton<UserRepository>(
-    () => UserRepositoryImpl( staticUserRemoteDataSource: StaticFireUserRemoteDataSource()
+    () => UserRepositoryImpl(
+        staticUserRemoteDataSource: StaticFireUserRemoteDataSource()
         // networkInfo: sl(),
 
         ),

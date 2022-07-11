@@ -7,22 +7,21 @@ import 'package:auth/src/features/user/domain/repositories/user_repository.dart'
 import 'package:auth/src/features/user/domain/usecases/user_usecase.dart';
 import 'package:dartz/dartz.dart';
 
-class WriteUserDataUsecase extends AddDomainUsecase<BenimUser,AddUserParams> {
+class WriteUserDataUsecase extends AddDomainUsecase<BenimUser, AddUserParams> {
   final UserRepository userRepository;
 
   WriteUserDataUsecase({required this.userRepository});
-  
+
   @override
-  Future<Either<Failure, Success>> call(AddUserParams params)async {
+  Future<Either<Failure, Success>> call(AddUserParams params) async {
     // TODO: implement call
-   return userRepository.addUser(params);
-  // return Right(MockSuccess());
+    return userRepository.addUser(params);
+    // return Right(MockSuccess());
   }
- 
 }
 
 class AddUserParams implements Params {
- final BenimUser eklenecekUser;
+  final BenimUser eklenecekUser;
   AddUserParams({
     required this.eklenecekUser,
   });

@@ -1,3 +1,4 @@
+import 'package:auth/auth.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dizi_ayraci_v7/core/error/failure.dart';
 import 'package:dizi_ayraci_v7/core/error/success.dart';
@@ -16,6 +17,9 @@ class DizilerListWidget extends StatelessWidget {
 
   _loadData() async {
     //https://www.youtube.com/watch?v=q2vUKcrL5CI
+    print('ffffffffffffffffffffffffffff');
+    print('ffffffffffffffffffffffffffff');
+    await Get.find<UserController>().writeUser(BenimUser());
     await Get.find<DiziController>().fetchDiziler();
   }
 

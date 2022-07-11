@@ -40,7 +40,6 @@
     "auth\\CHANGELOG.md": true,
     "auth\\auth.iml": true,
     "auth\\.packages": true,
-    "lib": true,
     "test": true
   }
 }

@@ -1,3 +1,4 @@
+import 'package:auth/auth.dart';
 import 'package:auth/src/core/error/success.dart';
 import 'package:auth/src/features/user/data/datasource/static/static_fire_user_remote_datasource.dart';
 import 'package:auth/src/features/user/data/datasource/static/static_user_remote_data_source.dart';
@@ -5,6 +6,7 @@ import 'package:auth/src/features/user/data/repository/user_repository_impl.dart
 import 'package:auth/src/features/user/domain/entities/BenimUser.dart';
 import 'package:auth/src/features/user/domain/repositories/user_repository.dart';
 import 'package:auth/src/features/user/domain/usecases/write_user_data_usecase.dart';
+import 'package:auth/src/features/user/presentation/state_management/user_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:dartz/dartz.dart';
@@ -14,9 +16,11 @@ class MockStaticFireUserRemoteDataSource extends Mock
 
 class MockUserRepositoryImpl extends Mock implements UserRepositoryImpl {}
 
+class MockAddUserParams extends Mock implements AddUserParams {}
+
 class MockBenimUser extends Mock implements BenimUser {}
 
-class MockAddUserParams extends Mock implements AddUserParams {}
+class MockWriteUserDataUsecase extends Mock implements WriteUserDataUsecase {}
 
 void main() {
 //sut class
@@ -28,12 +32,22 @@ void main() {
       staticUserRemoteDataSource; // interface for poly
   late MockAddUserParams mockAddUserParams;
 
-  group("usecase - repository test", () {
+  // Getx Test
+  late UserController sutGetx;
+
+//gercek classlar
+  // late UserService userService;
+
+//mock class
+  late MockWriteUserDataUsecase writeUserDataUsecase;
+  late BenimUser mockBenimUser;
+
+  group("call flow test usecase - repository test", () {
     setUp(() {
 //mock class
-      staticUserRemoteDataSource = MockStaticFireUserRemoteDataSource();
 
       mockAddUserParams = MockAddUserParams();
+      mockBenimUser = MockBenimUser();
 //gercek classlar
       userRepository =
           MockUserRepositoryImpl(); //! call flow ilk adimi olan usercase-repository test icin gerekli
@@ -95,4 +109,35 @@ void main() {
 
     ///
   });
+
+//   group("user getxController - usecase", () {
+//     setUp(() {
+//       //mock class
+
+//       // userRepository = MockUserRepositoryImpl();
+//       // mockBenimUser = MockBenimUser();
+
+//       writeUserDataUsecase = MockWriteUserDataUsecase();
+
+//       //gercek classlar
+
+//       userService = UserService();
+
+//       //sut class
+//       sutGetx = UserController();
+//     });
+
+// //aaaTest buraya
+//     test(
+//       "getxController - usecase",
+//       () async {
+// //arrange
+
+// //act
+//         await sutGetx.writeUser(BenimUser());
+
+// //assert
+//       },
+//     );
+//   });
 }

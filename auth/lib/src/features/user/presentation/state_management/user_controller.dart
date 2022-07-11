@@ -1,5 +1,6 @@
 import 'package:auth/auth.dart';
 import 'package:auth/src/core/singlelar/singlelar.dart';
+import 'package:auth/src/features/user/domain/usecases/write_user_data_usecase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../core/error/failure.dart';
@@ -104,5 +105,9 @@ class UserController extends GetxController {
     // return Right(SignInSuccess());
 
     // return Left(GeneralSignInFailure());
+  }
+
+  Future<Either<Failure, Success>> writeUser(BenimUser benimUser) async {
+    return UserService().writeUser(AddUserParams(eklenecekUser: benimUser));
   }
 }
