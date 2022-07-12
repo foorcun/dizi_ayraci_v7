@@ -18,6 +18,7 @@ export './src/features/user/presentation/state_management/user_controller.dart';
 export "./src/main_presentation/routes/app_pages.dart";
 export "./src/features/user/presentation/state_management/bindings/binding_export.dart";
 export "./src/features/user/domain/entities/BenimUser.dart";
+export "./src/features/user/data/model/benim_user_model.dart";
 
 bool USE_FIRESTORE_EMULATOR = false;
 final firestoreManager = FirebaseFirestore.instance;

@@ -19,7 +19,7 @@ class DizilerListWidget extends StatelessWidget {
     //https://www.youtube.com/watch?v=q2vUKcrL5CI
     print('ffffffffffffffffffffffffffff');
     print('ffffffffffffffffffffffffffff');
-    await Get.find<UserController>().writeUser(BenimUser());
+    await Get.find<UserController>().writeUser(BenimUserModel());
     await Get.find<DiziController>().fetchDiziler();
   }
 

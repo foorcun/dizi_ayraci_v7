@@ -2,6 +2,7 @@ import 'package:auth/src/core/error/failure.dart';
 import 'package:auth/src/core/error/success.dart';
 import 'package:auth/src/core/usecases/add_domain_usecase.dart';
 import 'package:auth/src/core/usecases/params.dart';
+import 'package:auth/src/features/user/data/model/benim_user_model.dart';
 import 'package:auth/src/features/user/domain/entities/BenimUser.dart';
 import 'package:auth/src/features/user/domain/repositories/user_repository.dart';
 import 'package:auth/src/features/user/domain/usecases/user_usecase.dart';
@@ -21,7 +22,7 @@ class WriteUserDataUsecase extends AddDomainUsecase<BenimUser, AddUserParams> {
 }
 
 class AddUserParams implements Params {
-  final BenimUser eklenecekUser;
+  final BenimUserModel eklenecekUser;
   AddUserParams({
     required this.eklenecekUser,
   });
